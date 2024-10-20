@@ -14,6 +14,10 @@ import { Product } from '../helpers/customTypes.ts';
 const targetProduct: Product = _.sample(products);
 
 describe('test scenarios', () => {
+  beforeEach(async () => {
+    await driver.activateApp('com.swaglabsmobileapp');
+  });
+
   it('should be possible to place the order', async () => {
     await loginScreen.loginAsUser(userDetails);
     await plpScreen.getProductCard(targetProduct.title).click();
@@ -32,5 +36,9 @@ describe('test scenarios', () => {
     );
     await checkoutScreen.finishOrderButton.click();
     await checkoutScreen.verifyOrderConfirmationIsDisplayed();
+  });
+
+  afterEach(async () => {
+    await driver.terminateApp('com.swaglabsmobileapp');
   });
 });

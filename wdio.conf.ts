@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'path';
 
 export const config: WebdriverIO.Config = {
     runner: 'local',
@@ -12,7 +12,7 @@ export const config: WebdriverIO.Config = {
     exclude: [
         // 'path/to/excluded/files'
     ],
-    maxInstances: 10,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -25,6 +25,7 @@ export const config: WebdriverIO.Config = {
         'appium:appWaitActivity': 'com.swaglabsmobileapp.MainActivity',
         'appium:automationName': 'UIAutomator2',
         'appium:app': path.join(process.cwd(), 'app/android/sauceLab.apk'),
+        'appium:autoLaunch': false
     }],
     logLevel: 'info',
     bail: 0,
