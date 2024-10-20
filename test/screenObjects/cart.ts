@@ -10,9 +10,7 @@ class Cart extends productCard {
   }
 
   get goToCheckoutButton(): ChainablePromiseElement {
-    return $(
-      `android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().description("test-CHECKOUT"))`
-    );
+    return $('~test-CHECKOUT');
   }
 
   async verifyNumberOfUniqueCartProducts(

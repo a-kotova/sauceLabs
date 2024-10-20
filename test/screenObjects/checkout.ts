@@ -1,5 +1,6 @@
 import productCard from './productCard.ts';
 import { PaymentDetails } from '../helpers/customTypes.ts';
+import { platformName } from '../helpers/constants.ts';
 
 class Checkout extends productCard {
   get firstNameField(): ChainablePromiseElement {
@@ -18,7 +19,15 @@ class Checkout extends productCard {
     return $('~test-CONTINUE');
   }
 
-  get finishOrderButton(): ChainablePromiseElement {
+  async getFinishOrderButton(): Promise<ChainablePromiseElement> {
+    if (platformName === 'ios') {
+      await driver.execute('mobile: scroll', {
+        direction: 'down',
+        strategy: 'name',
+        selector: 'FINISH'
+      });
+      return $('~test-FINISH');
+    }
     return $(
       `android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().description("test-FINISH"))`
     );

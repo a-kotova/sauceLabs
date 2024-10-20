@@ -1,9 +1,10 @@
 import loginScreen from '../screenObjects/login.ts';
 import userDetails from '../data/userDetails.js';
+import { appID } from '../helpers/constants.ts';
 
 describe('test scenarios to check validation of login fields', () => {
   beforeEach(async () => {
-    await driver.activateApp('com.swaglabsmobileapp');
+    await driver.activateApp(appID);
   });
 
   it('should show error message when missing password', async () => {
@@ -19,6 +20,6 @@ describe('test scenarios to check validation of login fields', () => {
   });
 
   afterEach(async () => {
-    await driver.terminateApp('com.swaglabsmobileapp');
+    await driver.terminateApp(appID);
   });
 });

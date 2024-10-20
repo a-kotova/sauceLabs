@@ -1,5 +1,6 @@
 import header from './header.ts';
 import {UserDetails} from '../helpers/customTypes.ts';
+import { platformName } from '../helpers/constants.ts';
 
 class Login {
   get usernameField(): ChainablePromiseElement {
@@ -19,7 +20,10 @@ class Login {
   }
 
   getErrorMessageText(expectedText: string): ChainablePromiseElement {
+    if (platformName === 'ios')
+      return this.errorMessageToast.$(`//*[@name="${expectedText}"]`);
     return this.errorMessageToast.$(`//*[@text="${expectedText}"]`);
+
   }
 
   async loginAsUser(userDetails: UserDetails): Promise<void> {
