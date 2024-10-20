@@ -1,3 +1,5 @@
+import { Product } from '../helpers/customTypes.ts';
+
 class ProductCard {
   private getAddedProduct(productTitle: string): ChainablePromiseElement {
     return $(`//android.widget.TextView[@text="${productTitle}"]/parent::*//parent::*`);
@@ -9,6 +11,10 @@ class ProductCard {
 
   private getProductQty(productTitle: string): ChainablePromiseElement {
     return this.getAddedProduct(productTitle).$('~test-Amount').$('android.widget.TextView');
+  }
+
+  getRemoveProductButton(productTitle: string): ChainablePromiseElement {
+    return this.getAddedProduct(productTitle).$('~test-REMOVE');
   }
 
   private async verifyAddedProductIsDisplayed(productTitle: string): ChainablePromiseElement {
@@ -23,7 +29,7 @@ class ProductCard {
     await expect(this.getProductQty(targetProduct)).toHaveText(expectedQty);
   }
 
-  async verifyAddedProductIsDisplayedCorrectly(productDetails, productQty: number): Promise<void> {
+  async verifyAddedProductIsDisplayedCorrectly(productDetails: Product, productQty: number): Promise<void> {
     await this.verifyAddedProductIsDisplayed(productDetails.title);
     await this.verifyProductPriceIsCorrect(productDetails.title, `$${productDetails.price}`);
     await this.verifyProductQtyIsCorrect(productDetails.title, productQty.toString());

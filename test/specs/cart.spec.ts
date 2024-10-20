@@ -25,6 +25,7 @@ describe('test scenarios', () => {
     await pdpScreen.addToCartButton.click();
     await expect(header.getCartCounter(1)).toBeDisplayed();
     await header.cartIcon.click();
+    await cartScreen.waitForCartToBeDisplayed();
     await cartScreen.verifyAddedProductIsDisplayedCorrectly(targetProduct, 1);
     await cartScreen.verifyNumberOfUniqueCartProducts(1);
     await cartScreen.goToCheckoutButton.click();
@@ -36,6 +37,18 @@ describe('test scenarios', () => {
     );
     await checkoutScreen.finishOrderButton.click();
     await checkoutScreen.verifyOrderConfirmationIsDisplayed();
+  });
+
+  it('should be possible to remove product from the cart', async () => {
+    await loginScreen.loginAsUser(userDetails);
+    await plpScreen.getProductCard(targetProduct.title).click();
+    await expect(pdpScreen.productTitle).toHaveText(targetProduct.title);
+    await pdpScreen.addToCartButton.click();
+    await header.cartIcon.click();
+    await cartScreen.waitForCartToBeDisplayed();
+    await cartScreen.verifyNumberOfUniqueCartProducts(1);
+    await cartScreen.getRemoveProductButton(targetProduct.title).click();
+    await cartScreen.verifyNumberOfUniqueCartProducts(0);
   });
 
   afterEach(async () => {
