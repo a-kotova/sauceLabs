@@ -17,16 +17,16 @@ const targetProduct: Product = _.sample(products);
 describe('test scenarios', () => {
   beforeEach(async () => {
     await driver.activateApp(appID);
-  });
-
-  it('should be possible to place the order', async () => {
     await loginScreen.loginAsUser(userDetails);
     await (await plpScreen.getProductCard(targetProduct.title)).click();
     await pdpScreen.verifyUserIsOnCorrectPDP(targetProduct.title);
     await (await pdpScreen.getAddToCartButton()).click();
-    await expect(header.getCartCounter(1)).toBeDisplayed();
     await header.cartIcon.click();
     await cartScreen.waitForCartToBeDisplayed();
+  });
+
+  it('should be possible to place the order', async () => {
+    await expect(header.getCartCounter(1)).toBeDisplayed();
     await cartScreen.verifyAddedProductIsDisplayedCorrectly(targetProduct);
     await cartScreen.verifyNumberOfUniqueCartProducts(1);
     await cartScreen.goToCheckoutButton.click();
@@ -38,12 +38,6 @@ describe('test scenarios', () => {
   });
 
   it('should be possible to remove product from the cart', async () => {
-    await loginScreen.loginAsUser(userDetails);
-    await (await plpScreen.getProductCard(targetProduct.title)).click();
-    await pdpScreen.verifyUserIsOnCorrectPDP(targetProduct.title);
-    await (await pdpScreen.getAddToCartButton()).click();
-    await header.cartIcon.click();
-    await cartScreen.waitForCartToBeDisplayed();
     await cartScreen.verifyNumberOfUniqueCartProducts(1);
     await cartScreen.getRemoveProductButton(targetProduct.title).click();
     await cartScreen.verifyNumberOfUniqueCartProducts(0);

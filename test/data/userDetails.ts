@@ -1,4 +1,4 @@
-import {UserDetails} from '../helpers/customTypes.ts';
+import { UserDetails } from '../helpers/customTypes.ts';
 
 const userDetails: UserDetails = {
   username: 'standard_user',

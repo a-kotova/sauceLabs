@@ -1,4 +1,4 @@
-import { platformName } from '../helpers/constants.ts';
+import { ifiOS } from '../helpers/utils.ts';
 
 class Header {
   get cartIcon(): ChainablePromiseElement {
@@ -6,8 +6,7 @@ class Header {
   }
 
   getCartCounter(expectedAmount: number): ChainablePromiseElement {
-    if (platformName === 'ios')
-      return this.cartIcon.$(`//*[@name="${expectedAmount}"]`);
+    if (ifiOS()) return this.cartIcon.$(`//*[@name="${expectedAmount}"]`);
     return this.cartIcon.$(`//*[@text="${expectedAmount}"]`);
   }
 }

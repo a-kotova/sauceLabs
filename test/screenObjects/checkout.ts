@@ -1,6 +1,6 @@
 import productCard from './productCard.ts';
 import { PaymentDetails } from '../helpers/customTypes.ts';
-import { platformName } from '../helpers/constants.ts';
+import { ifiOS } from '../helpers/utils.ts';
 
 class Checkout extends productCard {
   get firstNameField(): ChainablePromiseElement {
@@ -20,11 +20,11 @@ class Checkout extends productCard {
   }
 
   async getFinishOrderButton(): Promise<ChainablePromiseElement> {
-    if (platformName === 'ios') {
+    if (ifiOS()) {
       await driver.execute('mobile: scroll', {
         direction: 'down',
         strategy: 'name',
-        selector: 'FINISH'
+        selector: 'FINISH',
       });
       return $('~test-FINISH');
     }
