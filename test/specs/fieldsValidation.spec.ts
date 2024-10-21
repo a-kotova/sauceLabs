@@ -1,6 +1,7 @@
 import loginScreen from '../screenObjects/login.ts';
 import userDetails from '../data/userDetails.js';
 import { appID } from '../helpers/constants.ts';
+import messages from '../data/errorMessages.ts';
 
 describe('test scenarios to check validation of login fields', () => {
   beforeEach(async () => {
